@@ -1,14 +1,14 @@
 # Interfacing-Seven-segment-display-with-lpc2148
+```
+Name:K.M.Swetha	
+Roll no:21221240055
+Date of experiment:16.11.2022
 
-Name:	
-Roll no 
-Date of experiment:
 
 
-
-Ex. No. :
-Date: 
+Ex. No 08:Interfacing-Seven-segment-display-with-lpc2148
  
+``` 
 
 ### Aim: To configure and display 4 character LED seven segment display and write a c code for displaying number 1 to 9 and A to F 
 ### Components required: Proteus ISIS professional suite, Kiel μ vision 5 Development environment 
@@ -52,13 +52,54 @@ Sl no 	Hex code 	Output of LCD
         Figure -3 Circuit diagram of interfacing for LPX4 - CA
 
 ## Kiel - Program 
+```
+#include <LPC214x.H>
+unsigned char dig[]= {0x88,0xeb,0x4c,0x49,0x2b,0x19,0x18,0xcb,0x8,0x9,0xa,0x38,0x9c,0x68,0x1c,0x1e};
 
+void delay(unsigned int count)
+{
+	int j=0,i=0;
+	for(j=0;j<count;j++)
+	{
+		for(i=0;i<120;i++);
+	}
+}
 
+int main(void)
+{
+	unsigned char count=0;
+	unsigned int i=0;
+	IO0DIR |= (1 << 11);
+	IO0SET |= (1 << 11);
+	IO0DIR |= 0x007F8000;
+	while(1)
+	{
+		count++;
+		if(count == 16)count=0;
+		for(i=0;i<800;i++)
+		{
+			IO0CLR = 0x007f8000;
+			IO0SET = (dig[count] << 15);
+			delay(200);
+		}
+  }
+}
+```
 
- 
+### Output:
+## Before Stimulation:
+![swethbef](https://user-images.githubusercontent.com/94228215/202232571-13abf862-a4dd-43cd-9fcb-a9c0127804e0.png)
 
+## After Stimulation(Digit):
+![swethaf1](https://user-images.githubusercontent.com/94228215/202232637-52972b05-087e-4f0f-b2cd-e2ed4e271722.png)
+
+## After Stimulation(Alphabet):
+![swethaf2](https://user-images.githubusercontent.com/94228215/202232799-2f85dbb9-e138-4ef4-ad29-efc84d806744.png)
+
+## Circuit Diagram:
+![swethpdf](https://user-images.githubusercontent.com/94228215/202232846-20cd9b96-8499-4ffe-a5df-4cd92d94d104.png)
 
 ### Result :
 LED seven segment display is interfaced and displayed alpha numeric characters 
 
-##  Output screen shots :
+
